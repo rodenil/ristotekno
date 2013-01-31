@@ -10,7 +10,7 @@
 	<%= taxon.description  %> <br/>
 
 
-	<% taxon.products.first.images.each_with_index do |image, index| %>
+	<% taxon.images.each_with_index do |image, index| %>
 		<li class='tmb-all' id='tmb-<%= image.id %>'>
 			<%= link_to(image_tag(image.attachment.url(:mini)), image.attachment.url(:product), :class => 'tmb-all', :id => "tmb-#{image.id}") %>
 		</li>
