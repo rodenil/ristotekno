@@ -1,0 +1,29 @@
+<div>ciao</div>
+
+<h1 class="taxon-title"><%= accurate_title %></h1>
+
+<br/>
+<% taxon = @product.taxons.first %>
+
+	<%= taxon.children.size()  %> <br/>
+	<%= taxon.name  %> <br/>
+	<%= taxon.description  %> <br/>
+
+
+	<% taxon.products.first.images.each_with_index do |image, index| %>
+		<li class='tmb-all' id='tmb-<%= image.id %>'>
+			<%= link_to(image_tag(image.attachment.url(:mini)), image.attachment.url(:product), :class => 'tmb-all', :id => "tmb-#{image.id}") %>
+		</li>
+	<% end %>
+
+	<!-- print all product in taxon with one image each -->
+	<% taxon.products.each_with_index do |product, index| %>
+			 <ul id="taxon-thumbnails" class="thumbnails inline" data-hook>
+				<%= link_to truncate(product.name, :length => 50), product, :class => 'info', :itemprop => "name", :title => product.name %>
+			        <div class="product-image">
+				          <%= link_to small_image(product, :itemprop => "image"), product, :itemprop => 'url' %>
+	       			 </div>
+			</ul>
+	<% end %>
+
+<div>ciao</div>
