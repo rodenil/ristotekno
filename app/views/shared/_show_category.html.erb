@@ -3,17 +3,20 @@
 <h1 class="taxon-title"><%= accurate_title %></h1>
 
 <br/>
-<% taxon = @product.taxons.first %>
+	<% taxon = @product.taxons.first %>
+	<% firstImage = taxon.images.first %>
 
 	<%= taxon.children.size()  %> <br/>
 	<%= taxon.name  %> <br/>
 	<%= taxon.description  %> <br/>
 
-
+	<%= link_to(image_tag(firstImage.attachment.url(:large)), firstImage.attachment.url(:product), :class => 'tmb-all', :id => "tmb-#{firstImage.id}") %>
 	<% taxon.images.each_with_index do |image, index| %>
-		<li class='tmb-all' id='tmb-<%= image.id %>'>
-			<%= link_to(image_tag(image.attachment.url(:mini)), image.attachment.url(:product), :class => 'tmb-all', :id => "tmb-#{image.id}") %>
-		</li>
+		<% if image!=firstImage %>
+			<li class='tmb-all' id='tmb-<%= image.id %>'>
+				<%= link_to(image_tag(image.attachment.url(:mini)), image.attachment.url(:product), :class => 'tmb-all', :id => "tmb-#{image.id}") %>
+			</li>
+		<% end %>
 	<% end %>
 
 	<!-- print all product in taxon with one image each -->
