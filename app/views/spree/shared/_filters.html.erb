@@ -1,5 +1,4 @@
 <% filters = @taxon ? @taxon.applicable_filters : [Spree::ProductFilters.all_taxons] %>
-<div>ASDA <%= filters %></div>
 <% unless filters.empty? %>
   <%= form_tag '', :method => :get, :id => 'sidebar_products_search' do %>
     <% params[:search] ||= {} %>

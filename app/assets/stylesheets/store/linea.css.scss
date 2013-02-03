@@ -1,0 +1,17 @@
+  #taxon-images {
+    #taxon-main-image {
+      text-align: center;
+      border: solid 1px gray;
+      background-color: white;
+
+      img {
+        min-height: 240px;
+        max-width: 100%; /* Fluid images for product */
+      }
+    }
+    #taxon-thumbnails {
+      li {
+        background-color: white;
+      }
+    }
+  }

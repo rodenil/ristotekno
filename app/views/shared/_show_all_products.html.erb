@@ -1,0 +1,24 @@
+<div class="columns ten alpha" >
+	<div class="row">
+		<% taxon =  @product.taxons.first %>
+		<% @product.taxons.each do |tax| %>
+			<% if tax.children.empty? %>
+				<% taxon =  tax %>
+			<% end %>
+		<% end %>
+	
+		<!-- print all product in taxon with one image each -->
+<h6>DELLA STESSA LINEA: </h6>
+		<% taxon.products.each_with_index do |product, index| %>
+				 <ul id="taxon-thumbnails" class="columns two thumbnails inline" data-hook>
+					<div class="" style="text-align:center">
+					          <div><%= link_to mini_image(product, :itemprop => "image"), product, :itemprop => 'url' %></div>
+						 <div><%= link_to truncate(product.name, :length => 50), product, :class => 'info', :itemprop => "name", :title => product.name %></div>
+						<div> <span class="price selling" itemprop="price"><%= product.price_in(current_currency).display_price %></span></div>
+					</div>
+				</ul>
+		<% end %>
+
+      <%= render :partial => 'taxons' %>
+	</div>
+</div>

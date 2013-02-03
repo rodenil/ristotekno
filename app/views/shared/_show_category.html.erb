@@ -1,32 +1,35 @@
-<div>ciao</div>
-
-<h1 class="taxon-title"><%= accurate_title %></h1>
-
-<br/>
-	<% taxon = @product.taxons.first %>
-	<% firstImage = taxon.images.first %>
-
-	<%= taxon.children.size()  %> <br/>
-	<%= taxon.name  %> <br/>
-	<%= taxon.description  %> <br/>
-
-	<%= link_to(image_tag(firstImage.attachment.url(:large)), firstImage.attachment.url(:product), :class => 'tmb-all', :id => "tmb-#{firstImage.id}") %>
-	<% taxon.images.each_with_index do |image, index| %>
-		<% if image!=firstImage %>
-			<li class='tmb-all' id='tmb-<%= image.id %>'>
-				<%= link_to(image_tag(image.attachment.url(:mini)), image.attachment.url(:product), :class => 'tmb-all', :id => "tmb-#{image.id}") %>
-			</li>
+	<% taxon =  @product.taxons.first %>
+	<% @product.taxons.each do |tax| %>
+		<% if tax.children.empty? %>
+			<% taxon =  tax %>
 		<% end %>
 	<% end %>
 
-	<!-- print all product in taxon with one image each -->
-	<% taxon.products.each_with_index do |product, index| %>
-			 <ul id="taxon-thumbnails" class="thumbnails inline" data-hook>
-				<%= link_to truncate(product.name, :length => 50), product, :class => 'info', :itemprop => "name", :title => product.name %>
-			        <div class="product-image">
-				          <%= link_to small_image(product, :itemprop => "image"), product, :itemprop => 'url' %>
-	       			 </div>
-			</ul>
-	<% end %>
+<div class="row">
+	<div class="columns six alpha" >
+		<div id="taxon-images">
+			<div id="taxon-main-image">
+				<% unless taxon.images.empty? %>
+					<% firstImage = taxon.images.first %>
+					<%= link_to(image_tag(firstImage.attachment.url(:product)), firstImage.attachment.url(:product)) %>
+				<% end %>
+			</div>
+			
+			<div id="thumbnails" data-hook>
+				<ul id="taxon-thumbnails" class="thumbnails inline" data-hook>
+					<% taxon.images.each_with_index do |image, index| %>
+							<li class='tmb-all' id='tmb-<%= image.id %>'>
+								<%= link_to(image_tag(image.attachment.url(:mini)), image.attachment.url(:product), :class => 'tmb-all', :id => "tmb-#{image.id}") %>
+							</li>
+					<% end %>
+				</ul>
+		        </div>
+		</div>
+	</div>
 
-<div>ciao</div>
+	<div class="columns ten alpha" >
+		<h1 class="product-title"><%= taxon.name  %></h1>
+		<h6>
+		<%= taxon.description  %> </h6>
+	</div>
+</div>
